@@ -1,6 +1,5 @@
-# DA_Study
-[Code States Alumni Challenge]
----
+# DA_Study ### [Code States Alumni Challenge]
+
 # :books: 스터디 내용
 - ## SQL
   - 하루에 한 문제 이상 풀고 깃허브 공유
