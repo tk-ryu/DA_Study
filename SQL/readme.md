@@ -1,4 +1,4 @@
-#하루 1문제 SQL
+# :pencil2: 하루 1문제 SQL
 
 SQL : PostgreSQL
 Data : DVD rental 정보
