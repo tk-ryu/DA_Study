@@ -1,4 +1,5 @@
-# DA_Study ### [Code States Alumni Challenge]
+# DA_Study 
+[Code States Alumni Challenge]
 
 # :books: 스터디 내용
 - ## SQL
