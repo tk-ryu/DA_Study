@@ -1,7 +1,7 @@
---¹®Á¦1¹ø) ¿µÈ­ ¹è¿ì°¡,  ¿µÈ­ 180ºÐ ÀÌ»óÀÇ ±æÀÌ ÀÇ ¿µÈ­¿¡ Ãâ¿¬ÇÏ°Å³ª, ¿µÈ­ÀÇ rating ÀÌ R ÀÎ µî±Þ¿¡ ÇØ´çÇÏ´Â ¿µÈ­¿¡ Ãâ¿¬ÇÑ  ¿µÈ­ ¹è¿ì¿¡ ´ëÇØ¼­,  ¿µÈ­ ¹è¿ì ID ¿Í (180ºÐÀÌ»ó / Rµî±Þ¿µÈ­)¿¡ ´ëÇÑ Flag ÄÃ·³À» ¾Ë·ÁÁÖ¼¼¿ä.
---- film_actor Å×ÀÌºí¿Í film Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¼¼¿ä.
---- union, unionall, intersect, except Áß »óÈ²¿¡ ¸Â°Ô »ç¿ëÇØÁÖ¼¼¿ä.
---- actor_id °¡ µ¿ÀÏÇÑ flag °ª ÀÌ ¿©·¯°³ ³ª¿ÀÁö ¾Êµµ·Ï ÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ1ë²ˆ) ì˜í™” ë°°ìš°ê°€,  ì˜í™” 180ë¶„ ì´ìƒì˜ ê¸¸ì´ ì˜ ì˜í™”ì— ì¶œì—°í•˜ê±°ë‚˜, ì˜í™”ì˜ rating ì´ R ì¸ ë“±ê¸‰ì— í•´ë‹¹í•˜ëŠ” ì˜í™”ì— ì¶œì—°í•œ  ì˜í™” ë°°ìš°ì— ëŒ€í•´ì„œ,  ì˜í™” ë°°ìš° ID ì™€ (180ë¶„ì´ìƒ / Rë“±ê¸‰ì˜í™”)ì— ëŒ€í•œ Flag ì»¬ëŸ¼ì„ ì•Œë ¤ì£¼ì„¸ìš”.
+--- film_actor í…Œì´ë¸”ì™€ film í…Œì´ë¸”ì„ ì´ìš©í•˜ì„¸ìš”.
+--- union, unionall, intersect, except ì¤‘ ìƒí™©ì— ë§žê²Œ ì‚¬ìš©í•´ì£¼ì„¸ìš”.
+--- actor_id ê°€ ë™ì¼í•œ flag ê°’ ì´ ì—¬ëŸ¬ê°œ ë‚˜ì˜¤ì§€ ì•Šë„ë¡ í•´ì£¼ì„¸ìš”.
 
 SELECT a.actor_id, 'length' AS flag
 FROM actor a 
@@ -32,9 +32,9 @@ from film
 where rating ='R'
 )
 
---¹®Á¦2¹ø) Rµî±ÞÀÇ ¿µÈ­¿¡ Ãâ¿¬Çß´ø ¹è¿ìÀÌ¸é¼­, µ¿½Ã¿¡, Alone TripÀÇ ¿µÈ­¿¡ Ãâ¿¬ÇÑ  ¿µÈ­¹è¿ìÀÇ ID ¸¦ È®ÀÎÇØÁÖ¼¼¿ä.
---- film_actor Å×ÀÌºí¿Í film Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¼¼¿ä.
---- union, unionall, intersect, except Áß »óÈ²¿¡ ¸Â°Ô »ç¿ëÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ2ë²ˆ) Rë“±ê¸‰ì˜ ì˜í™”ì— ì¶œì—°í–ˆë˜ ë°°ìš°ì´ë©´ì„œ, ë™ì‹œì—, Alone Tripì˜ ì˜í™”ì— ì¶œì—°í•œ  ì˜í™”ë°°ìš°ì˜ ID ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.
+--- film_actor í…Œì´ë¸”ì™€ film í…Œì´ë¸”ì„ ì´ìš©í•˜ì„¸ìš”.
+--- union, unionall, intersect, except ì¤‘ ìƒí™©ì— ë§žê²Œ ì‚¬ìš©í•´ì£¼ì„¸ìš”.
 
 SELECT fa.actor_id 
 FROM film_actor fa 
@@ -46,9 +46,9 @@ WHERE fa.film_id IN (SELECT film_id FROM film f WHERE f.title ILIKE 'alone trip'
 
 
 
---¹®Á¦3¹ø) G µî±Þ¿¡ ÇØ´çÇÏ´Â ÇÊ¸§À» Âï¾úÀ¸³ª,   ¿µÈ­¸¦ 20ÆíÀÌ»ó ÂïÁö ¾ÊÀº ¿µÈ­¹è¿ìÀÇ ID ¸¦ È®ÀÎÇØÁÖ¼¼¿ä.
---- film_actor Å×ÀÌºí¿Í film Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¼¼¿ä.
---- union, unionall, intersect, except Áß »óÈ²¿¡ ¸Â°Ô »ç¿ëÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ3ë²ˆ) G ë“±ê¸‰ì— í•´ë‹¹í•˜ëŠ” í•„ë¦„ì„ ì°ì—ˆìœ¼ë‚˜,   ì˜í™”ë¥¼ 20íŽ¸ì´ìƒ ì°ì§€ ì•Šì€ ì˜í™”ë°°ìš°ì˜ ID ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.
+--- film_actor í…Œì´ë¸”ì™€ film í…Œì´ë¸”ì„ ì´ìš©í•˜ì„¸ìš”.
+--- union, unionall, intersect, except ì¤‘ ìƒí™©ì— ë§žê²Œ ì‚¬ìš©í•´ì£¼ì„¸ìš”.
 SELECT actor_id 
 FROM film_actor fa 
 WHERE fa.film_id IN (SELECT film_id FROM film f WHERE f.rating = 'G')
@@ -58,15 +58,15 @@ FROM film_actor fa
 GROUP BY fa.actor_id 
 HAVING count(fa.actor_id) < 20
 
---ºñ°í : WHERE Á¶°ÇÀý·Î ÇÊÅÍ¸µÇÑ µ¥ÀÌÅÍ Áß¿¡¼­ GROUP BY¸¦ ÇÏ±â ¶§¹®¿¡ ÀÇµµ¿Í ´Ù¸£°Ô ³ª¿È
+--ë¹„ê³  : WHERE ì¡°ê±´ì ˆë¡œ í•„í„°ë§í•œ ë°ì´í„° ì¤‘ì—ì„œ GROUP BYë¥¼ í•˜ê¸° ë•Œë¬¸ì— ì˜ë„ì™€ ë‹¤ë¥´ê²Œ ë‚˜ì˜´
 SELECT actor_id, count(fa.actor_id)
 FROM film_actor fa 
 WHERE fa.film_id IN (SELECT film_id FROM film f WHERE f.rating = 'G')
 GROUP BY fa.actor_id 
 HAVING count(fa.actor_id) < 20
 
---¹®Á¦4¹ø) ÇÊ¸§ Áß¿¡¼­,  ÇÊ¸§ Ä«Å×°í¸®°¡ Action, Animation, Horror ¿¡ ÇØ´çÇÏÁö ¾Ê´Â ÇÊ¸§ ¾ÆÀÌµð¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- category Å×ÀÌºíÀ» ÀÌ¿ëÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ4ë²ˆ) í•„ë¦„ ì¤‘ì—ì„œ,  í•„ë¦„ ì¹´í…Œê³ ë¦¬ê°€ Action, Animation, Horror ì— í•´ë‹¹í•˜ì§€ ì•ŠëŠ” í•„ë¦„ ì•„ì´ë””ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- category í…Œì´ë¸”ì„ ì´ìš©í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT fc.film_id 
 FROM film_category fc  
 WHERE fc.category_id IN (SELECT c.category_id FROM category c WHERE c.name NOT IN ('Action', 'Animation', 'Horror'))
@@ -89,15 +89,14 @@ GROUP BY fc.category_id
 HAVING fc.category_id IN (SELECT c.category_id FROM category c WHERE c.name NOT IN ('Action', 'Animation', 'Horror'))
 
 
-
---¹®Á¦5¹ø) Staff  ÀÇ  id , ÀÌ¸§, ¼º ¿¡ ´ëÇÑ µ¥ÀÌÅÍ¿Í , Customer ÀÇ id, ÀÌ¸§ , ¼º¿¡ ´ëÇÑ µ¥ÀÌÅÍ¸¦  ÇÏ³ªÀÇ  µ¥ÀÌÅÍ¼ÂÀÇ ÇüÅÂ·Î º¸¿©ÁÖ¼¼¿ä.
---- ÄÃ·³ ±¸¼º : id, ÀÌ¸§ , ¼º, flag (Á÷¿ø/°í°´¿©ºÎ) ·Î ±¸¼ºÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ5ë²ˆ) Staff  ì˜  id , ì´ë¦„, ì„± ì— ëŒ€í•œ ë°ì´í„°ì™€ , Customer ì˜ id, ì´ë¦„ , ì„±ì— ëŒ€í•œ ë°ì´í„°ë¥¼  í•˜ë‚˜ì˜  ë°ì´í„°ì…‹ì˜ í˜•íƒœë¡œ ë³´ì—¬ì£¼ì„¸ìš”.
+--- ì»¬ëŸ¼ êµ¬ì„± : id, ì´ë¦„ , ì„±, flag (ì§ì›/ê³ ê°ì—¬ë¶€) ë¡œ êµ¬ì„±í•´ì£¼ì„¸ìš”.
 --
 --
---¹®Á¦6¹ø) Á÷¿ø°ú  °í°´ÀÇ ÀÌ¸§ÀÌ µ¿ÀÏÇÑ »ç¶÷ÀÌ È¤½Ã ÀÖ³ª¿ä? ÀÖ´Ù¸é, ÇØ´ç »ç¶÷ÀÇ ÀÌ¸§°ú ¼ºÀ» ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ6ë²ˆ) ì§ì›ê³¼  ê³ ê°ì˜ ì´ë¦„ì´ ë™ì¼í•œ ì‚¬ëžŒì´ í˜¹ì‹œ ìžˆë‚˜ìš”? ìžˆë‹¤ë©´, í•´ë‹¹ ì‚¬ëžŒì˜ ì´ë¦„ê³¼ ì„±ì„ ì•Œë ¤ì£¼ì„¸ìš”.
 --
 --
---¹®Á¦7¹ø) ¹Ý³³ÀÌ µÇÁö ¾ÊÀº ´ë¿©Á¡(store)º° ¿µÈ­ Àç°í (inventory)¿Í ÀüÃ¼ ¿µÈ­ Àç°í¸¦ °°ÀÌ ±¸ÇÏ¼¼¿ä. (union all)
+--ë¬¸ì œ7ë²ˆ) ë°˜ë‚©ì´ ë˜ì§€ ì•Šì€ ëŒ€ì—¬ì (store)ë³„ ì˜í™” ìž¬ê³  (inventory)ì™€ ì „ì²´ ì˜í™” ìž¬ê³ ë¥¼ ê°™ì´ êµ¬í•˜ì„¸ìš”. (union all)
 --
 --
---¹®Á¦8¹ø) ±¹°¡(country)º° µµ½Ã(city)º° ¸ÅÃâ¾×, ±¹°¡(country)¸ÅÃâ¾× ¼Ò°è ±×¸®°í ÀüÃ¼ ¸ÅÃâ¾×À» ±¸ÇÏ¼¼¿ä. (union all)
+--ë¬¸ì œ8ë²ˆ) êµ­ê°€(country)ë³„ ë„ì‹œ(city)ë³„ ë§¤ì¶œì•¡, êµ­ê°€(country)ë§¤ì¶œì•¡ ì†Œê³„ ê·¸ë¦¬ê³  ì „ì²´ ë§¤ì¶œì•¡ì„ êµ¬í•˜ì„¸ìš”. (union all)
