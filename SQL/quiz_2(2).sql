@@ -1,4 +1,4 @@
---1.ÁÖ¹®ÀÏÀÌ 2017-09-02 ÀÏ¿¡ ÇØ´ç ÇÏ´Â ÁÖ¹®°Ç¿¡ ´ëÇØ¼­,? ¾î¶² °í°´ÀÌ, ¾î¶°ÇÑ »óÇ°¿¡ ´ëÇØ¼­ ¾ó¸¶¸¦ ÁöºÒÇÏ¿©? »óÇ°À» ±¸¸ÅÇß´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä.
+--1.ì£¼ë¬¸ì¼ì´ 2017-09-02 ì¼ì— í•´ë‹¹ í•˜ëŠ” ì£¼ë¬¸ê±´ì— ëŒ€í•´ì„œ,? ì–´ë–¤ ê³ ê°ì´, ì–´ë– í•œ ìƒí’ˆì— ëŒ€í•´ì„œ ì–¼ë§ˆë¥¼ ì§€ë¶ˆí•˜ì—¬? ìƒí’ˆì„ êµ¬ë§¤í–ˆëŠ”ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.
 
 SELECT orderdate, custfirstname|| ' ' || custlastname AS name, productname, retailprice
 FROM orders o 
@@ -8,8 +8,8 @@ LEFT OUTER JOIN products p USING (productnumber)
 WHERE orderdate = date('2017-09-02')
 
 
---2.Çï¸äÀ» ÁÖ¹®ÇÑ Àû ¾ø´Â °í°´À» º¸¿©ÁÖ¼¼¿ä.
---- Çï¸ËÀº, Products Å×ÀÌºíÀÇ productname ÄÃ·³À» ÀÌ¿ëÇØ¼­ È®ÀÎÇØÁÖ¼¼¿ä.
+--2.í—¬ë©§ì„ ì£¼ë¬¸í•œ ì  ì—†ëŠ” ê³ ê°ì„ ë³´ì—¬ì£¼ì„¸ìš”.
+--- í—¬ë§·ì€, Products í…Œì´ë¸”ì˜ productname ì»¬ëŸ¼ì„ ì´ìš©í•´ì„œ í™•ì¸í•´ì£¼ì„¸ìš”.
 
 WITH helmet_orders AS (
 SELECT custfirstname || ' ' || custlastname AS full_name
@@ -24,7 +24,7 @@ FROM customers
 WHERE custfirstname || ' ' || custlastname NOT IN (SELECT full_name FROM helmet_orders)
 
 
---3.¸ğµç Á¦Ç° °ú ÁÖ¹® ÀÏÀÚ¸¦ ³ª¿­ÇÏ¼¼¿ä. (ÁÖ¹®µÇÁö ¾ÊÀº Á¦Ç°µµ Æ÷ÇÔÇØ¼­ º¸¿©ÁÖ¼¼¿ä.)
+--3.ëª¨ë“  ì œí’ˆ ê³¼ ì£¼ë¬¸ ì¼ìë¥¼ ë‚˜ì—´í•˜ì„¸ìš”. (ì£¼ë¬¸ë˜ì§€ ì•Šì€ ì œí’ˆë„ í¬í•¨í•´ì„œ ë³´ì—¬ì£¼ì„¸ìš”.)
 
 SELECT p.productname, string_agg(o.orderdate::TEXT , ',' ORDER BY o.orderdate) 
 FROM products p 
@@ -38,7 +38,7 @@ LEFT OUTER JOIN order_details od USING (productnumber)
 LEFT OUTER JOIN orders o USING (ordernumber)
 
 
---4.Ä¶¸®Æ÷´Ï¾Æ ÁÖ¿Í Ä¶¸®Æ÷´Ï¾Æ ÁÖ°¡ ¾Æ´Ñ STATS ·Î ±¸ºĞÇÏ¿© °¢ ÁÖ¹®·®À» ¾Ë·ÁÁÖ¼¼¿ä. (CASE¹® »ç¿ë)
+--4.ìº˜ë¦¬í¬ë‹ˆì•„ ì£¼ì™€ ìº˜ë¦¬í¬ë‹ˆì•„ ì£¼ê°€ ì•„ë‹Œ STATS ë¡œ êµ¬ë¶„í•˜ì—¬ ê° ì£¼ë¬¸ëŸ‰ì„ ì•Œë ¤ì£¼ì„¸ìš”. (CASEë¬¸ ì‚¬ìš©)
 
 WITH tmp AS (
 SELECT 
@@ -55,7 +55,7 @@ FROM tmp
 GROUP BY state
 
 
---5.°ø±Ş ¾÷Ã¼ ¿Í ÆÇ¸Å Á¦Ç° ¼ö¸¦ ³ª¿­ÇÏ¼¼¿ä. ´Ü ÆÇ¸Å Á¦Ç°¼ö°¡ 2°³ ÀÌ»óÀÎ °÷¸¸ º¸¿©ÁÖ¼¼¿ä.
+--5.ê³µê¸‰ ì—…ì²´ ì™€ íŒë§¤ ì œí’ˆ ìˆ˜ë¥¼ ë‚˜ì—´í•˜ì„¸ìš”. ë‹¨ íŒë§¤ ì œí’ˆìˆ˜ê°€ 2ê°œ ì´ìƒì¸ ê³³ë§Œ ë³´ì—¬ì£¼ì„¸ìš”.
 
 SELECT v.vendorid, v.vendname , count(p.productnumber)
 FROM vendors v 
@@ -64,8 +64,8 @@ LEFT OUTER JOIN products p USING (productnumber)
 GROUP BY v.vendorid , v.vendname 
 HAVING count(p.productnumber) >= 2
 
---6. °¡Àå ³ôÀº ÁÖ¹® ±İ¾×À» »ê °í°´Àº ´©±¸ÀÎ°¡¿ä?
---- ÁÖ¹®ÀÏÀÚº°, °í°´ÀÇ ¾ÆÀÌµğº°·Î, ÁÖ¹®¹øÈ£, ÁÖ¹® ±İ¾×µµ ÇÔ²² ¾Ë·ÁÁÖ¼¼¿ä.
+--6. ê°€ì¥ ë†’ì€ ì£¼ë¬¸ ê¸ˆì•¡ì„ ì‚° ê³ ê°ì€ ëˆ„êµ¬ì¸ê°€ìš”?
+--- ì£¼ë¬¸ì¼ìë³„, ê³ ê°ì˜ ì•„ì´ë””ë³„ë¡œ, ì£¼ë¬¸ë²ˆí˜¸, ì£¼ë¬¸ ê¸ˆì•¡ë„ í•¨ê»˜ ì•Œë ¤ì£¼ì„¸ìš”.
 
 WITH tmp as(
 SELECT od.ordernumber , od.quotedprice * od.quantityordered AS order_price
@@ -80,8 +80,8 @@ LIMIT 1
 
 
 
---7.ÁÖ¹®ÀÏÀÚº°·Î, ÁÖ¹® °¹¼ö¿Í,? °í°´¼ö¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- ex) ÇÏ·ç¿¡ ÇÑ °í°´ÀÌ ÁÖ¹®À» 2¹øÀÌ»óÇß´Ù°í °¡Á¤ÇßÀ»¶§ -> ÇØ´çÀÇ °æ¿ì´Â °í°´¼ö´Â 1¸íÀ¸·Î °è»êÇØ¾ßÇÕ´Ï´Ù.
+--7.ì£¼ë¬¸ì¼ìë³„ë¡œ, ì£¼ë¬¸ ê°¯ìˆ˜ì™€,? ê³ ê°ìˆ˜ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- ex) í•˜ë£¨ì— í•œ ê³ ê°ì´ ì£¼ë¬¸ì„ 2ë²ˆì´ìƒí–ˆë‹¤ê³  ê°€ì •í–ˆì„ë•Œ -> í•´ë‹¹ì˜ ê²½ìš°ëŠ” ê³ ê°ìˆ˜ëŠ” 1ëª…ìœ¼ë¡œ ê³„ì‚°í•´ì•¼í•©ë‹ˆë‹¤.
 
 SELECT orderdate, count(ordernumber) AS order_cnt, count(DISTINCT customerid) AS customer_cnt
 FROM orders o 
@@ -89,10 +89,10 @@ GROUP BY orderdate
 ORDER BY orderdate 
 
 
---8¹ø »ı·«
+--8ë²ˆ ìƒëµ
 --
---9.Å¸ÀÌ¾î°ú Çï¸äÀ» ¸ğµÎ »êÀûÀÌ ÀÖ´Â °í°´ÀÇ ID ¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- Å¸ÀÌ¾î¿Í Çï¸ä¿¡ ´ëÇØ¼­´Â , Products Å×ÀÌºíÀÇ productname ÄÃ·³À» ÀÌ¿ëÇØ¼­ È®ÀÎÇØÁÖ¼¼¿ä.
+--9.íƒ€ì´ì–´ê³¼ í—¬ë©§ì„ ëª¨ë‘ ì‚°ì ì´ ìˆëŠ” ê³ ê°ì˜ ID ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- íƒ€ì´ì–´ì™€ í—¬ë©§ì— ëŒ€í•´ì„œëŠ” , Products í…Œì´ë¸”ì˜ productname ì»¬ëŸ¼ì„ ì´ìš©í•´ì„œ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT customerid
 FROM orders o 
 LEFT OUTER JOIN order_details od USING (ordernumber)
@@ -127,8 +127,8 @@ FROM tire t
 INNER JOIN helmet h ON h.customerid = t.customerid
 
 
---10. Å¸ÀÌ¾î´Â »òÁö¸¸, Çï¸äÀ» »çÁö ¾ÊÀº °í°´ÀÇ ID ¸¦ ¾Ë·ÁÁÖ¼¼¿ä. Except Á¶°ÇÀ» »ç¿ëÇÏ¿©, Ç®ÀÌ ÇØÁÖ¼¼¿ä.
---- Å¸ÀÌ¾î, Çï¸ä¿¡ ´ëÇØ¼­´Â, Products Å×ÀÌºíÀÇ productname ÄÃ·³À» ÀÌ¿ëÇØ¼­ È®ÀÎÇØÁÖ¼¼¿ä.
+--10. íƒ€ì´ì–´ëŠ” ìƒ€ì§€ë§Œ, í—¬ë©§ì„ ì‚¬ì§€ ì•Šì€ ê³ ê°ì˜ ID ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”. Except ì¡°ê±´ì„ ì‚¬ìš©í•˜ì—¬, í’€ì´ í•´ì£¼ì„¸ìš”.
+--- íƒ€ì´ì–´, í—¬ë©§ì— ëŒ€í•´ì„œëŠ”, Products í…Œì´ë¸”ì˜ productname ì»¬ëŸ¼ì„ ì´ìš©í•´ì„œ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT customerid
 FROM orders o 
 LEFT OUTER JOIN order_details od USING (ordernumber)
