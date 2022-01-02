@@ -56,7 +56,16 @@ INTERSECT
 SELECT actor_id
 FROM film_actor fa 
 GROUP BY fa.actor_id 
-HAVING count(fa.actor_id) < 20
+HAVING count(fa.film_id) < 20
+
+SELECT actor_id 
+FROM film_actor fa 
+WHERE fa.film_id IN (SELECT film_id FROM film f WHERE f.rating = 'G')
+EXCEPT 
+SELECT actor_id
+FROM film_actor fa 
+GROUP BY fa.actor_id 
+HAVING count(fa.film_id) >= 20
 
 --비고 : WHERE 조건절로 필터링한 데이터 중에서 GROUP BY를 하기 때문에 의도와 다르게 나옴
 SELECT actor_id, count(fa.actor_id)
