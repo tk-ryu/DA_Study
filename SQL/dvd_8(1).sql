@@ -1,6 +1,6 @@
---¹®Á¦1¹ø) dvd ´ë¿©¸¦ Á¦ÀÏ ¸¹ÀÌÇÑ °í°´ ÀÌ¸§Àº? (analytic funtion È°¿ë)
+--ë¬¸ì œ1ë²ˆ) dvd ëŒ€ì—¬ë¥¼ ì œì¼ ë§ì´í•œ ê³ ê° ì´ë¦„ì€? (analytic funtion í™œìš©)
 
--- ¹æ¹ı 1
+-- ë°©ë²• 1
 SELECT first_name || ' ' || last_name AS "name", count(rental_id), rank() OVER (ORDER BY count(rental_id) DESC)
 FROM customer c 
 LEFT JOIN rental r USING (customer_id)
@@ -8,7 +8,7 @@ GROUP BY customer_id, first_name , last_name
 ORDER BY "rank"
 LIMIT 1
 
--- ¹æ¹ı 2
+-- ë°©ë²• 2
 SELECT first_name || ' ' || last_name AS "name" , "count", "rank"
 FROM customer c 
 LEFT JOIN (
@@ -20,7 +20,7 @@ LEFT JOIN (
 ORDER BY "rank"
 LIMIT 1
 
--- ¹æ¹ı 3 (rank È°¿ë ¾øÀÌ)
+-- ë°©ë²• 3 (rank í™œìš© ì—†ì´)
 SELECT first_name || ' ' || last_name AS "name", count(rental_id)
 FROM customer c 
 LEFT JOIN rental r USING (customer_id)
@@ -28,20 +28,20 @@ GROUP BY customer_id, first_name , last_name
 ORDER BY "count" DESC 
 LIMIT 1
 
--- row_number vs rank ºñ±³
---row_number : ¼øÀ§ Áßº¹ ¾ÈµÊ
+-- row_number vs rank ë¹„êµ
+--row_number : ìˆœìœ„ ì¤‘ë³µ ì•ˆë¨
 SELECT customer_id, count(rental_id), row_number() OVER (ORDER BY count(rental_id) DESC)
 FROM rental r 
 GROUP BY customer_id
 
--- rank : ¼øÀ§ Áßº¹ °¡´É
+-- rank : ìˆœìœ„ ì¤‘ë³µ ê°€ëŠ¥
 SELECT customer_id, count(rental_id), RANK() OVER (ORDER BY count(rental_id) DESC)
 FROM rental r 
 GROUP BY customer_id 
 
 
 
---¹®Á¦2¹ø) ¸ÅÃâÀ» °¡Àå ¸¹ÀÌ ¿Ã¸° dvd °í°´ ÀÌ¸§Àº? (analytic funtion È°¿ë)
+--ë¬¸ì œ2ë²ˆ) ë§¤ì¶œì„ ê°€ì¥ ë§ì´ ì˜¬ë¦° dvd ê³ ê° ì´ë¦„ì€? (analytic funtion í™œìš©)
 SELECT first_name || ' ' || last_name AS "name", sum(amount), rank() OVER (ORDER BY sum(amount) DESC)
 FROM customer c 
 LEFT JOIN payment p USING (customer_id)
@@ -49,7 +49,7 @@ GROUP BY customer_id, first_name , last_name
 ORDER BY "rank"
 LIMIT 1
 
---¹®Á¦3¹ø) dvd ´ë¿©°¡ °¡Àå ÀûÀº µµ½Ã´Â? (anlytic funtion)
+--ë¬¸ì œ3ë²ˆ) dvd ëŒ€ì—¬ê°€ ê°€ì¥ ì ì€ ë„ì‹œëŠ”? (anlytic funtion)
 
 SELECT city, count(r.rental_id), RANK() OVER (ORDER BY count(rental_id) ASC)
 FROM city c 
@@ -59,8 +59,8 @@ LEFT JOIN rental r USING (customer_id)
 GROUP BY city 
 
 
---¹®Á¦4¹ø) ¸ÅÃâÀÌ °¡Àå ¾È³ª¿À´Â µµ½Ã´Â? (anlytic funtion)
--- sum ÇÔ¼ö´Â null°ªÀÌ ÀÖ´Â °æ¿ì null·Î Ã³¸®ÇÏ°Ô µÇ´Ï, coalesce¸¦ È°¿ëÇØ 0À¸·Î ¹Ù²ãÁÙ °Í
+--ë¬¸ì œ4ë²ˆ) ë§¤ì¶œì´ ê°€ì¥ ì•ˆë‚˜ì˜¤ëŠ” ë„ì‹œëŠ”? (anlytic funtion)
+-- sum í•¨ìˆ˜ëŠ” nullê°’ì´ ìˆëŠ” ê²½ìš° nullë¡œ ì²˜ë¦¬í•˜ê²Œ ë˜ë‹ˆ, coalesceë¥¼ í™œìš©í•´ 0ìœ¼ë¡œ ë°”ê¿”ì¤„ ê²ƒ
 SELECT city, COALESCE(sum(amount), 0), RANK() OVER (ORDER BY COALESCE(sum(amount), 0) ASC)
 FROM city c 
 LEFT JOIN address a USING (city_id)
@@ -69,7 +69,7 @@ LEFT JOIN payment p USING (customer_id)
 GROUP BY city 
 
 
---¹®Á¦5¹ø) ¿ùº° ¸ÅÃâ¾×À» ±¸ÇÏ°í ÀÌÀü ¿ùº¸´Ù ¸ÅÃâ¾×ÀÌ ÁÙ¾îµç ¿ùÀ» ±¸ÇÏ¼¼¿ä. (ÀÏÀÚ´Â payment_date ±âÁØ)
+--ë¬¸ì œ5ë²ˆ) ì›”ë³„ ë§¤ì¶œì•¡ì„ êµ¬í•˜ê³  ì´ì „ ì›”ë³´ë‹¤ ë§¤ì¶œì•¡ì´ ì¤„ì–´ë“  ì›”ì„ êµ¬í•˜ì„¸ìš”. (ì¼ìëŠ” payment_date ê¸°ì¤€)
 WITH tmp as(
 	SELECT EXTRACT(YEAR FROM payment_date) AS "Year"
 		, EXTRACT(month FROM payment_date) AS "Month"
@@ -85,12 +85,12 @@ FROM tmp AS t
 WHERE "Gap" < 0
 
 
---¹®Á¦6¹ø) µµ½Ãº° dvd ´ë¿© ¸ÅÃâ ¼øÀ§¸¦ ±¸ÇÏ¼¼¿ä.
+--ë¬¸ì œ6ë²ˆ) ë„ì‹œë³„ dvd ëŒ€ì—¬ ë§¤ì¶œ ìˆœìœ„ë¥¼ êµ¬í•˜ì„¸ìš”.
 --
---¹®Á¦7¹ø) ´ë¿©Á¡º° ¸ÅÃâ ¼øÀ§¸¦ ±¸ÇÏ¼¼¿ä.
+--ë¬¸ì œ7ë²ˆ) ëŒ€ì—¬ì ë³„ ë§¤ì¶œ ìˆœìœ„ë¥¼ êµ¬í•˜ì„¸ìš”.
 --
---¹®Á¦8¹ø) ³ª¶óº°·Î °¡Àå ´ë¿©¸¦ ¸¹ÀÌÇÑ °í°´ TOP 5¸¦ ±¸ÇÏ¼¼¿ä.
+--ë¬¸ì œ8ë²ˆ) ë‚˜ë¼ë³„ë¡œ ê°€ì¥ ëŒ€ì—¬ë¥¼ ë§ì´í•œ ê³ ê° TOP 5ë¥¼ êµ¬í•˜ì„¸ìš”.
 --
---¹®Á¦9¹ø) ¿µÈ­ Ä«Å×°í¸® (Category) º°·Î ´ë¿©°¡ °¡Àå ¸¹ÀÌ µÈ ¿µÈ­ TOP 5¸¦ ±¸ÇÏ¼¼¿ä
+--ë¬¸ì œ9ë²ˆ) ì˜í™” ì¹´í…Œê³ ë¦¬ (Category) ë³„ë¡œ ëŒ€ì—¬ê°€ ê°€ì¥ ë§ì´ ëœ ì˜í™” TOP 5ë¥¼ êµ¬í•˜ì„¸ìš”
 --
---¹®Á¦10¹ø) ¸ÅÃâÀÌ °¡Àå ¸¹Àº ¿µÈ­ Ä«Å×°í¸®¿Í ¸ÅÃâÀÌ °¡Àå ÀÛÀº ¿µÈ­ Ä«Å×°í¸®¸¦ ±¸ÇÏ¼¼¿ä. (first_value, last_value)
+--ë¬¸ì œ10ë²ˆ) ë§¤ì¶œì´ ê°€ì¥ ë§ì€ ì˜í™” ì¹´í…Œê³ ë¦¬ì™€ ë§¤ì¶œì´ ê°€ì¥ ì‘ì€ ì˜í™” ì¹´í…Œê³ ë¦¬ë¥¼ êµ¬í•˜ì„¸ìš”. (first_value, last_value)
