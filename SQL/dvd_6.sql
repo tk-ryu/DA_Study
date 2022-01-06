@@ -1,4 +1,4 @@
---¹®Á¦1¹ø) ¸ÅÃâÀ» °¡Àå ¸¹ÀÌ ¿Ã¸° dvd °í°´ ÀÌ¸§Àº? (subquery È°¿ë)
+--ë¬¸ì œ1ë²ˆ) ë§¤ì¶œì„ ê°€ìž¥ ë§Žì´ ì˜¬ë¦° dvd ê³ ê° ì´ë¦„ì€? (subquery í™œìš©)
 SELECT c.first_name || ' ' || c.last_name AS name
 FROM customer c 
 WHERE c.customer_id IN (SELECT p.customer_id
@@ -9,7 +9,7 @@ LIMIT 1
 )
 
 
---¹®Á¦2¹ø) ´ë¿©°¡ ÇÑ¹øµµÀÌ¶óµµ µÈ ¿µÈ­ Ä«Å× °í¸® ÀÌ¸§À» ¾Ë·ÁÁÖ¼¼¿ä. (Äõ¸®´Â, ExistsÁ¶°ÇÀ» ÀÌ¿ëÇÏ¿© Ç®¾îº¾½Ã´Ù)
+--ë¬¸ì œ2ë²ˆ) ëŒ€ì—¬ê°€ í•œë²ˆë„ì´ë¼ë„ ëœ ì˜í™” ì¹´í…Œ ê³ ë¦¬ ì´ë¦„ì„ ì•Œë ¤ì£¼ì„¸ìš”. (ì¿¼ë¦¬ëŠ”, Existsì¡°ê±´ì„ ì´ìš©í•˜ì—¬ í’€ì–´ë´…ì‹œë‹¤)
 SELECT c."name" 
 FROM category c 
 WHERE EXISTS (
@@ -20,8 +20,8 @@ WHERE EXISTS (
 	WHERE fc.category_id = c.category_id 
 	)
 
---¿¬½À. 1¹ø ÀÌ»ó ´ë¿©µÈ ¿µÈ­ 
---	WHERE EXISTS »ç¿ë
+--ì—°ìŠµ. 1ë²ˆ ì´ìƒ ëŒ€ì—¬ëœ ì˜í™” 
+--	WHERE EXISTS ì‚¬ìš©
 SELECT title 
 FROM film f 
 WHERE EXISTS (
@@ -31,7 +31,7 @@ WHERE EXISTS (
 	WHERE i.film_id = f.film_id 
 	)
 	
---	Ã³À½ »ý°¢ÇÑ ¹æ¹ý
+--	ì²˜ìŒ ìƒê°í•œ ë°©ë²•
 SELECT film_id, title, count(rental_id) AS cnt
 FROM film f 
 LEFT JOIN inventory i USING (film_id)
@@ -41,7 +41,7 @@ HAVING count(rental_id) >= 1
 ORDER BY film_id
 
 
---¹®Á¦3¹ø) ´ë¿©°¡ ÇÑ¹øµµÀÌ¶óµµ µÈ ¿µÈ­ Ä«Å× °í¸® ÀÌ¸§À» ¾Ë·ÁÁÖ¼¼¿ä. (Äõ¸®´Â, Any Á¶°ÇÀ» ÀÌ¿ëÇÏ¿© Ç®¾îº¾½Ã´Ù)
+--ë¬¸ì œ3ë²ˆ) ëŒ€ì—¬ê°€ í•œë²ˆë„ì´ë¼ë„ ëœ ì˜í™” ì¹´í…Œ ê³ ë¦¬ ì´ë¦„ì„ ì•Œë ¤ì£¼ì„¸ìš”. (ì¿¼ë¦¬ëŠ”, Any ì¡°ê±´ì„ ì´ìš©í•˜ì—¬ í’€ì–´ë´…ì‹œë‹¤)
 SELECT c."name" 
 FROM category c 
 WHERE c.category_id =ANY (
@@ -51,7 +51,7 @@ WHERE c.category_id =ANY (
 	JOIN film_category fc USING (film_id)
 	)
 
---¹®Á¦4¹ø) ´ë¿©°¡ °¡Àå ¸¹ÀÌ ÁøÇàµÈ Ä«Å×°í¸®´Â ¹«¾ùÀÎ°¡¿ä? (Any, All Á¶°Ç Áß ÇÏ³ª¸¦ »ç¿ëÇÏ¿© Ç®¾îº¾½Ã´Ù)
+--ë¬¸ì œ4ë²ˆ) ëŒ€ì—¬ê°€ ê°€ìž¥ ë§Žì´ ì§„í–‰ëœ ì¹´í…Œê³ ë¦¬ëŠ” ë¬´ì—‡ì¸ê°€ìš”? (Any, All ì¡°ê±´ ì¤‘ í•˜ë‚˜ë¥¼ ì‚¬ìš©í•˜ì—¬ í’€ì–´ë´…ì‹œë‹¤)
 SELECT c."name" 
 FROM category c 
 WHERE c.category_id =ANY (
@@ -73,7 +73,7 @@ GROUP BY c."name"
 ORDER BY count(rental_id) DESC 
 
 
---¹®Á¦5¹ø) dvd ´ë¿©¸¦ Á¦ÀÏ ¸¹ÀÌÇÑ °í°´ ÀÌ¸§Àº? (subquery È°¿ë)
+--ë¬¸ì œ5ë²ˆ) dvd ëŒ€ì—¬ë¥¼ ì œì¼ ë§Žì´í•œ ê³ ê° ì´ë¦„ì€? (subquery í™œìš©)
 
 SELECT concat (c.first_name, ' ', c.last_name) AS full_name
 FROM customer c 
@@ -92,7 +92,7 @@ GROUP BY c.customer_id, c.first_name , c.last_name
 ORDER BY count(rental_id) DESC 
 
 
---¹®Á¦6¹ø) ¿µÈ­ Ä«Å×°í¸®°ªÀÌ Á¸ÀçÇÏÁö ¾Ê´Â ¿µÈ­°¡ ÀÖ³ª¿ä?
+--ë¬¸ì œ6ë²ˆ) ì˜í™” ì¹´í…Œê³ ë¦¬ê°’ì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ì˜í™”ê°€ ìžˆë‚˜ìš”?
 SELECT *
 FROM film f 
 LEFT JOIN film_category fc USING (film_id)
