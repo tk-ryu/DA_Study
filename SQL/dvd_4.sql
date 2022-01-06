@@ -1,28 +1,28 @@
---¹®Á¦1¹ø) store º°·Î staff´Â ¸î¸íÀÌ ÀÖ´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ1ë²ˆ) store ë³„ë¡œ staffëŠ” ëª‡ëª…ì´ ìžˆëŠ”ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT store_id , count(manager_staff_id) AS number_of_staffs
 FROM store
 GROUP BY store_id 
 
---¹®Á¦2¹ø) ¿µÈ­µî±Þ(rating) º°·Î ¸î°³ ¿µÈ­filmÀ» °¡Áö°í ÀÖ´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ2ë²ˆ) ì˜í™”ë“±ê¸‰(rating) ë³„ë¡œ ëª‡ê°œ ì˜í™”filmì„ ê°€ì§€ê³  ìžˆëŠ”ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT rating , count(*)
 FROM film f 
 GROUP BY f.rating 
 
---¹®Á¦3¹ø) ÃâÇöÇÑ ¿µÈ­¹è¿ì(actor)°¡  10¸í ÃÊ°úÇÑ ¿µÈ­¸íÀº ¹«¾ùÀÎ°¡¿ä?
+--ë¬¸ì œ3ë²ˆ) ì¶œí˜„í•œ ì˜í™”ë°°ìš°(actor)ê°€  10ëª… ì´ˆê³¼í•œ ì˜í™”ëª…ì€ ë¬´ì—‡ì¸ê°€ìš”?
 SELECT fa.film_id, f.title , count(actor_id)
 FROM film_actor fa 
 LEFT OUTER JOIN film f ON f.film_id = fa.film_id
 GROUP BY fa.film_id, f.title 
 HAVING count(actor_id) > 10
 
---¹®Á¦4¹ø) ¿µÈ­ ¹è¿ì(actor)µéÀÌ Ãâ¿¬ÇÑ ¿µÈ­´Â °¢°¢ ¸î ÆíÀÎ°¡¿ä?
---- ¿µÈ­ ¹è¿ìÀÇ ÀÌ¸§ , ¼º °ú ÇÔ²² Ãâ¿¬ ¿µÈ­ ¼ö¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ4ë²ˆ) ì˜í™” ë°°ìš°(actor)ë“¤ì´ ì¶œì—°í•œ ì˜í™”ëŠ” ê°ê° ëª‡ íŽ¸ì¸ê°€ìš”?
+--- ì˜í™” ë°°ìš°ì˜ ì´ë¦„ , ì„± ê³¼ í•¨ê»˜ ì¶œì—° ì˜í™” ìˆ˜ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT a.first_name , a.last_name , count(film_id)
 FROM film_actor fa 
 LEFT OUTER JOIN actor a ON a.actor_id = fa.actor_id 
 GROUP BY fa.actor_id , a.first_name , a.last_name 
 
---¹®Á¦5¹ø) ±¹°¡(country)º° °í°´(customer) ´Â ¸î¸íÀÎ°¡¿ä?
+--ë¬¸ì œ5ë²ˆ) êµ­ê°€(country)ë³„ ê³ ê°(customer) ëŠ” ëª‡ëª…ì¸ê°€ìš”?
 SELECT c3.country ,count(c.customer_id)
 FROM customer c 
 LEFT OUTER JOIN address a ON a.address_id = c.address_id 
@@ -30,8 +30,8 @@ LEFT OUTER JOIN city c2 ON c2.city_id = a.city_id
 LEFT OUTER JOIN country c3 ON c3.country_id = c2.country_id 
 GROUP BY c3.country 
 
---¹®Á¦6¹ø) ¿µÈ­ Àç°í (inventory) ¼ö·®ÀÌ 3°³ ÀÌ»óÀÎ ¿µÈ­(film) ´Â?
---- store´Â »ó°ü ¾øÀÌ È®ÀÎÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ6ë²ˆ) ì˜í™” ìž¬ê³  (inventory) ìˆ˜ëŸ‰ì´ 3ê°œ ì´ìƒì¸ ì˜í™”(film) ëŠ”?
+--- storeëŠ” ìƒê´€ ì—†ì´ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT i.film_id, f.film_id,  count(i.inventory_id)
 FROM inventory i 
 LEFT OUTER JOIN film f ON f.film_id = i.film_id 
@@ -39,7 +39,7 @@ GROUP BY i.film_id, f.film_id
 HAVING count(i.inventory_id) >= 3
 
 
---¹®Á¦7¹ø) dvd ´ë¿©¸¦ Á¦ÀÏ ¸¹ÀÌÇÑ °í°´ ÀÌ¸§Àº?
+--ë¬¸ì œ7ë²ˆ) dvd ëŒ€ì—¬ë¥¼ ì œì¼ ë§Žì´í•œ ê³ ê° ì´ë¦„ì€?
 SELECT r.customer_id , c.first_name, c.last_name, count(r.rental_id)
 FROM rental r 
 LEFT OUTER JOIN customer c ON c.customer_id = r.customer_id 
@@ -47,22 +47,22 @@ GROUP BY r.customer_id, c.first_name, c.last_name
 ORDER BY count DESC 
 LIMIT 1
 
---¹®Á¦8¹ø) rental Å×ÀÌºíÀ»  ±âÁØÀ¸·Î,   2005³â 5¿ù26ÀÏ¿¡ ´ë¿©¸¦ ±â·ÏÇÑ °í°´ Áß, ÇÏ·ç¿¡ 2¹ø ÀÌ»ó ´ë¿©¸¦ ÇÑ °í°´ÀÇ ID °ªÀ» È®ÀÎÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ8ë²ˆ) rental í…Œì´ë¸”ì„  ê¸°ì¤€ìœ¼ë¡œ,   2005ë…„ 5ì›”26ì¼ì— ëŒ€ì—¬ë¥¼ ê¸°ë¡í•œ ê³ ê° ì¤‘, í•˜ë£¨ì— 2ë²ˆ ì´ìƒ ëŒ€ì—¬ë¥¼ í•œ ê³ ê°ì˜ ID ê°’ì„ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT r.customer_id, date(r.rental_date) ,count(r.rental_id)
 FROM rental r 
 WHERE date(r.rental_date ) = date('2005-05-26')
 GROUP BY date(r.rental_date), r.customer_id 
 HAVING count(r.rental_id) >= 2
 
---¹®Á¦9¹ø) film_actor Å×ÀÌºíÀ» ±âÁØÀ¸·Î, ÃâÇöÇÑ ¿µÈ­ÀÇ ¼ö°¡ ¸¹Àº  5¸íÀÇ actor_id ¿Í , ÃâÇöÇÑ ¿µÈ­ ¼ö ¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ9ë²ˆ) film_actor í…Œì´ë¸”ì„ ê¸°ì¤€ìœ¼ë¡œ, ì¶œí˜„í•œ ì˜í™”ì˜ ìˆ˜ê°€ ë§Žì€  5ëª…ì˜ actor_id ì™€ , ì¶œí˜„í•œ ì˜í™” ìˆ˜ ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT fa.actor_id , count(fa.film_id)
 FROM film_actor fa 
 GROUP BY fa.actor_id 
 ORDER BY count DESC 
 LIMIT 5
 
---¹®Á¦10¹ø) payment Å×ÀÌºíÀ» ±âÁØÀ¸·Î,  °áÁ¦ÀÏÀÚ°¡ 2007³â2¿ù15ÀÏ¿¡ ÇØ´ç ÇÏ´Â ÁÖ¹® Áß¿¡¼­  ,  ÇÏ·ç¿¡ 2°Ç ÀÌ»ó ÁÖ¹®ÇÑ °í°´ÀÇ  ÃÑ °áÁ¦ ±Ý¾×ÀÌ 10´Þ·¯ ÀÌ»óÀÎ °í°´¿¡ ´ëÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
---(°í°´ÀÇ id,  ÁÖ¹®°Ç¼ö , ÃÑ °áÁ¦ ±Ý¾×±îÁö ¾Ë·ÁÁÖ¼¼¿ä)
+--ë¬¸ì œ10ë²ˆ) payment í…Œì´ë¸”ì„ ê¸°ì¤€ìœ¼ë¡œ,  ê²°ì œì¼ìžê°€ 2007ë…„2ì›”15ì¼ì— í•´ë‹¹ í•˜ëŠ” ì£¼ë¬¸ ì¤‘ì—ì„œ  ,  í•˜ë£¨ì— 2ê±´ ì´ìƒ ì£¼ë¬¸í•œ ê³ ê°ì˜  ì´ ê²°ì œ ê¸ˆì•¡ì´ 10ë‹¬ëŸ¬ ì´ìƒì¸ ê³ ê°ì— ëŒ€í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
+--(ê³ ê°ì˜ id,  ì£¼ë¬¸ê±´ìˆ˜ , ì´ ê²°ì œ ê¸ˆì•¡ê¹Œì§€ ì•Œë ¤ì£¼ì„¸ìš”)
 SELECT p.customer_id , count(p.payment_id), sum(p.amount)
 FROM payment p 
 WHERE date(p.payment_date) = date('2007-02-15')
@@ -71,7 +71,7 @@ HAVING count(p.payment_id) >= 2
 AND sum(p.amount) >= 10
 ORDER BY count DESC 
 
---¹®Á¦11¹ø) »ç¿ëµÇ´Â ¾ð¾îº° ¿µÈ­ ¼ö´Â?
+--ë¬¸ì œ11ë²ˆ) ì‚¬ìš©ë˜ëŠ” ì–¸ì–´ë³„ ì˜í™” ìˆ˜ëŠ”?
 SELECT l.name, count(f.film_id)
 FROM "language" l 
 LEFT OUTER JOIN film f ON f.language_id = l.language_id 
@@ -84,24 +84,24 @@ WHERE f.language_id != 1
 SELECT *
 FROM "language" l 
 
---¹®Á¦12¹ø) 40Æí ÀÌ»ó Ãâ¿¬ÇÑ ¿µÈ­ ¹è¿ì(actor) ´Â ´©±¸ÀÎ°¡¿ä?
+--ë¬¸ì œ12ë²ˆ) 40íŽ¸ ì´ìƒ ì¶œì—°í•œ ì˜í™” ë°°ìš°(actor) ëŠ” ëˆ„êµ¬ì¸ê°€ìš”?
 SELECT a.name, count(fa.film_id) AS film_count
 FROM (select actor_id, first_name || ' ' || last_name AS name
 FROM actor a) AS a
 LEFT OUTER JOIN film_actor fa ON fa.actor_id = a.actor_id 
 GROUP BY a.name 
 
---¹®Á¦13¹ø) °í°´ µî±Þº° °í°´ ¼ö¸¦ ±¸ÇÏ¼¼¿ä. (´ë¿© ±Ý¾× È¤Àº ¸ÅÃâ¾×  ¿¡ µû¶ó °í°´ µî±ÞÀ» ³ª´©°í Á¶°ÇÀº ¾Æ·¡¿Í °°½À´Ï´Ù.)
+--ë¬¸ì œ13ë²ˆ) ê³ ê° ë“±ê¸‰ë³„ ê³ ê° ìˆ˜ë¥¼ êµ¬í•˜ì„¸ìš”. (ëŒ€ì—¬ ê¸ˆì•¡ í˜¹ì€ ë§¤ì¶œì•¡  ì— ë”°ë¼ ê³ ê° ë“±ê¸‰ì„ ë‚˜ëˆ„ê³  ì¡°ê±´ì€ ì•„ëž˜ì™€ ê°™ìŠµë‹ˆë‹¤.)
 /*
-A µî±ÞÀº 151 ÀÌ»ó
-B µî±ÞÀº 101 ÀÌ»ó 150 ÀÌÇÏ
-C µî±ÞÀº   51 ÀÌ»ó 100 ÀÌÇÏ
-D µî±ÞÀº   50 ÀÌÇÏ
+A ë“±ê¸‰ì€ 151 ì´ìƒ
+B ë“±ê¸‰ì€ 101 ì´ìƒ 150 ì´í•˜
+C ë“±ê¸‰ì€   51 ì´ìƒ 100 ì´í•˜
+D ë“±ê¸‰ì€   50 ì´í•˜
 
-- ´ë¿© ±Ý¾×ÀÇ ¼Ò¼öÁ¡Àº ¹Ý¿Ã¸² ÇÏ¼¼¿ä.
+- ëŒ€ì—¬ ê¸ˆì•¡ì˜ ì†Œìˆ˜ì ì€ ë°˜ì˜¬ë¦¼ í•˜ì„¸ìš”.
 
 HINT
-¹Ý¿Ã¸² ÇÏ´Â ÇÔ¼ö´Â ROUND ÀÔ´Ï´Ù.	
+ë°˜ì˜¬ë¦¼ í•˜ëŠ” í•¨ìˆ˜ëŠ” ROUND ìž…ë‹ˆë‹¤.	
 */
 
 SELECT grade, count(customer_grade.customer_id)
