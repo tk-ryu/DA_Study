@@ -1,10 +1,10 @@
---¹®Á¦1¹ø) °í°´ÀÇ ±âº» Á¤º¸ÀÎ, °í°´ id, ÀÌ¸§, ¼º, ÀÌ¸ŞÀÏ°ú ÇÔ²² °í°´ÀÇ ÁÖ¼Ò address, district, postal_code, phone ¹øÈ£¸¦ ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
---null°ª ÀÖ´ÂÁö È®ÀÎ
+--ë¬¸ì œ1ë²ˆ) ê³ ê°ì˜ ê¸°ë³¸ ì •ë³´ì¸, ê³ ê° id, ì´ë¦„, ì„±, ì´ë©”ì¼ê³¼ í•¨ê»˜ ê³ ê°ì˜ ì£¼ì†Œ address, district, postal_code, phone ë²ˆí˜¸ë¥¼ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
+--nullê°’ ìˆëŠ”ì§€ í™•ì¸
 SELECT *
 FROM customer c 
 WHERE c.address_id IS NULL 
 
---null°ª ¾øÀ¸´Ï inner join 
+--nullê°’ ì—†ìœ¼ë‹ˆ inner join 
 SELECT c.customer_id , c.first_name , c.last_name , c.email , a.address , a.district , a.postal_code , a.phone 
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
@@ -14,41 +14,41 @@ FROM customer c
 LEFT OUTER JOIN address a ON a.address_id = c.address_id 
 
 
---¹®Á¦2¹ø) °í°´ÀÇ  ±âº» Á¤º¸ÀÎ, °í°´ id, ÀÌ¸§, ¼º, ÀÌ¸ŞÀÏ°ú ÇÔ²² °í°´ÀÇ ÁÖ¼Ò address, district, postal_code, phone , city ¸¦ ÇÔ²² ¾Ë·ÁÁÖ¼¼¿ä.
---address.city_id null°ª ¿©ºÎ È®ÀÎ
+--ë¬¸ì œ2ë²ˆ) ê³ ê°ì˜  ê¸°ë³¸ ì •ë³´ì¸, ê³ ê° id, ì´ë¦„, ì„±, ì´ë©”ì¼ê³¼ í•¨ê»˜ ê³ ê°ì˜ ì£¼ì†Œ address, district, postal_code, phone , city ë¥¼ í•¨ê»˜ ì•Œë ¤ì£¼ì„¸ìš”.
+--address.city_id nullê°’ ì—¬ë¶€ í™•ì¸
 SELECT *
 FROM address a 
 WHERE a.city_id IS NULL 
 
---null°ª ¾øÀ¸´Ï INNER join
+--nullê°’ ì—†ìœ¼ë‹ˆ INNER join
 SELECT c.customer_id , c.first_name , c.last_name , c.email , a.address , a.district , a.postal_code , a.phone , c2.city
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
 JOIN city c2 ON a.city_id = c2.city_id 
 
---¹®Á¦3¹ø) Lima City¿¡ »ç´Â °í°´ÀÇ ÀÌ¸§°ú, ¼º, ÀÌ¸ŞÀÏ, phonenumber¿¡ ´ëÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ3ë²ˆ) Lima Cityì— ì‚¬ëŠ” ê³ ê°ì˜ ì´ë¦„ê³¼, ì„±, ì´ë©”ì¼, phonenumberì— ëŒ€í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT first_name , last_name , email , phone
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
 JOIN city c2 ON a.city_id = c2.city_id  
 WHERE c2.city ~~* 'lima'
 
---¹®Á¦4¹ø) rental Á¤º¸¿¡ Ãß°¡·Î, °í°´ÀÇ ÀÌ¸§°ú, Á÷¿øÀÇ ÀÌ¸§À» ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
---- °í°´ÀÇ ÀÌ¸§, Á÷¿ø ÀÌ¸§Àº ÀÌ¸§°ú ¼ºÀ» fullname ÄÃ·³À¸·Î¸¸µé¾î¼­ Á÷¿øÀÌ¸§/°í°´ÀÌ¸§ 2°³ÀÇ ÄÃ·³À¸·Î È®ÀÎÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ4ë²ˆ) rental ì •ë³´ì— ì¶”ê°€ë¡œ, ê³ ê°ì˜ ì´ë¦„ê³¼, ì§ì›ì˜ ì´ë¦„ì„ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
+--- ê³ ê°ì˜ ì´ë¦„, ì§ì› ì´ë¦„ì€ ì´ë¦„ê³¼ ì„±ì„ fullname ì»¬ëŸ¼ìœ¼ë¡œë§Œë“¤ì–´ì„œ ì§ì›ì´ë¦„/ê³ ê°ì´ë¦„ 2ê°œì˜ ì»¬ëŸ¼ìœ¼ë¡œ í™•ì¸í•´ì£¼ì„¸ìš”.
 SELECT r.*, concat(c.first_name, ' ', c.last_name ) AS "customer name" , concat(s.first_name, ' ', s.last_name ) AS "staff name"
 FROM rental r 
 JOIN customer c ON c.customer_id = r.customer_id 
 JOIN staff s ON s.staff_id = r.staff_id 
 
---¹®Á¦5¹ø) [seth.hannon@sakilacustomer.org](mailto:seth.hannon@sakilacustomer.org) ÀÌ¸ŞÀÏ ÁÖ¼Ò¸¦ °¡Áø °í°´ÀÇ  ÁÖ¼Ò address, address2, postal_code, phone, city ÁÖ¼Ò¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ5ë²ˆ) [seth.hannon@sakilacustomer.org](mailto:seth.hannon@sakilacustomer.org) ì´ë©”ì¼ ì£¼ì†Œë¥¼ ê°€ì§„ ê³ ê°ì˜  ì£¼ì†Œ address, address2, postal_code, phone, city ì£¼ì†Œë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT a.address , a.address2 , a.postal_code , a.phone , c2.city 
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
 JOIN city c2 ON a.city_id = c2.city_id 
 WHERE email ILIKE 'seth.hannon@sakilacustomer.org'
 
---¹®Á¦6¹ø) Jon Stephens Á÷¿øÀ» ÅëÇØ dvd´ë¿©¸¦ ÇÑ payment ±â·Ï Á¤º¸¸¦  È®ÀÎÇÏ·Á°í ÇÕ´Ï´Ù.
---- payment_id,  °í°´ ÀÌ¸§ °ú ¼º,  rental_id, amount, staff ÀÌ¸§°ú ¼ºÀ» ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ6ë²ˆ) Jon Stephens ì§ì›ì„ í†µí•´ dvdëŒ€ì—¬ë¥¼ í•œ payment ê¸°ë¡ ì •ë³´ë¥¼  í™•ì¸í•˜ë ¤ê³  í•©ë‹ˆë‹¤.
+--- payment_id,  ê³ ê° ì´ë¦„ ê³¼ ì„±,  rental_id, amount, staff ì´ë¦„ê³¼ ì„±ì„ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT p.payment_id , concat(c.first_name, ' ', c.last_name) AS customer , r.rental_id , p.amount , concat(s.first_name, ' ', s.last_name)
 FROM payment p 
 JOIN staff s ON s.staff_id = p.staff_id 
@@ -58,26 +58,26 @@ WHERE s.first_name = 'Jon' AND s.last_name = 'Stephens'
 
 
 
---¹®Á¦7¹ø) ¹è¿ì°¡ Ãâ¿¬ÇÏÁö ¾Ê´Â ¿µÈ­ÀÇ film_id, title, release_year, rental_rate, length ¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ7ë²ˆ) ë°°ìš°ê°€ ì¶œì—°í•˜ì§€ ì•ŠëŠ” ì˜í™”ì˜ film_id, title, release_year, rental_rate, length ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT f.film_id , f.title , f.release_year , f.rental_rate , f.length 
 FROM film f 
 LEFT OUTER JOIN film_actor fa ON fa.film_id = f.film_id 
 WHERE fa.actor_id IS NULL 
 
---¹®Á¦8¹ø) store »óÁ¡ idº° ÁÖ¼Ò (address, address2, distict) ¿Í ÇØ´ç »óÁ¡ÀÌ À§Ä¡ÇÑ city ÁÖ¼Ò¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ8ë²ˆ) store ìƒì  idë³„ ì£¼ì†Œ (address, address2, distict) ì™€ í•´ë‹¹ ìƒì ì´ ìœ„ì¹˜í•œ city ì£¼ì†Œë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT a.address , a.address2 , a.district , c.city 
 FROM store s 
 JOIN address a ON a.address_id = s.address_id 
 JOIN city c ON c.city_id = a.city_id 
 
---¹®Á¦9¹ø) °í°´ÀÇ id º°·Î °í°´ÀÇ ÀÌ¸§ (first_name, last_name), ÀÌ¸ŞÀÏ, °í°´ÀÇ ÁÖ¼Ò (address, district), phone¹øÈ£, city, country ¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ9ë²ˆ) ê³ ê°ì˜ id ë³„ë¡œ ê³ ê°ì˜ ì´ë¦„ (first_name, last_name), ì´ë©”ì¼, ê³ ê°ì˜ ì£¼ì†Œ (address, district), phoneë²ˆí˜¸, city, country ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT c.customer_id , c.first_name , c.last_name , c.email , a.address , a.district , a.phone , c2.city, c3.country 
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
 JOIN city c2 ON a.city_id = c2.city_id 
 JOIN country c3 ON c3.country_id = c2.country_id 
 
---¹®Á¦10¹ø) country °¡ china °¡ ¾Æ´Ñ Áö¿ª¿¡ »ç´Â, °í°´ÀÇ ÀÌ¸§(first_name, last_name)°ú , email, phonenumber, country, city ¸¦ ¾Ë·ÁÁÖ¼¼¿ä
+--ë¬¸ì œ10ë²ˆ) country ê°€ china ê°€ ì•„ë‹Œ ì§€ì—­ì— ì‚¬ëŠ”, ê³ ê°ì˜ ì´ë¦„(first_name, last_name)ê³¼ , email, phonenumber, country, city ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”
 SELECT c.customer_id , c.first_name , c.last_name , c.email , a.address , a.district , a.phone , c2.city, c3.country 
 FROM customer c 
 JOIN address a ON a.address_id = c.address_id 
@@ -92,15 +92,15 @@ JOIN city c2 ON a.city_id = c2.city_id
 JOIN country c3 ON c3.country_id = c2.country_id 
 WHERE c3.country !~~* 'china'
 
---¹®Á¦11¹ø) Horror Ä«Å×°í¸® Àå¸£¿¡ ÇØ´çÇÏ´Â ¿µÈ­ÀÇ ÀÌ¸§°ú description ¿¡ ´ëÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä
+--ë¬¸ì œ11ë²ˆ) Horror ì¹´í…Œê³ ë¦¬ ì¥ë¥´ì— í•´ë‹¹í•˜ëŠ” ì˜í™”ì˜ ì´ë¦„ê³¼ description ì— ëŒ€í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”
 SELECT f.description , c.name AS "category"
 FROM film f 
 JOIN film_category fc ON fc.film_id = f.film_id 
 JOIN category c ON c.category_id = fc.category_id 
 WHERE c."name" ~~* 'horror'
 
---¹®Á¦12¹ø) Music Àå¸£ÀÌ¸é¼­, ¿µÈ­±æÀÌ°¡ 60~180ºĞ »çÀÌ¿¡ ÇØ´çÇÏ´Â ¿µÈ­ÀÇ title, description, length ¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- ¿µÈ­ ±æÀÌ°¡ ÂªÀº ¼øÀ¸·Î Á¤·ÄÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ12ë²ˆ) Music ì¥ë¥´ì´ë©´ì„œ, ì˜í™”ê¸¸ì´ê°€ 60~180ë¶„ ì‚¬ì´ì— í•´ë‹¹í•˜ëŠ” ì˜í™”ì˜ title, description, length ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- ì˜í™” ê¸¸ì´ê°€ ì§§ì€ ìˆœìœ¼ë¡œ ì •ë ¬í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT f.title , f.description , f.length , c.name AS "category"
 FROM film f 
 JOIN film_category fc ON fc.film_id = f.film_id 
@@ -118,7 +118,7 @@ AND f.length BETWEEN 60 AND 180
 ORDER BY f.length ASC 
 
 
---¹®Á¦13¹ø) actor Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¿©,  ¹è¿ìÀÇ ID, ÀÌ¸§, ¼º ÄÃ·³¿¡ Ãß°¡·Î    'Angels Life' ¿µÈ­¿¡ ³ª¿Â ¿µÈ­ ¹è¿ì ¿©ºÎ¸¦ Y , N À¸·Î ÄÃ·³À» Ãß°¡ Ç¥±âÇØÁÖ¼¼¿ä.  ÇØ´ç ÄÃ·³Àº angelslife_flag·Î ¸¸µé¾îÁÖ¼¼¿ä.
+--ë¬¸ì œ13ë²ˆ) actor í…Œì´ë¸”ì„ ì´ìš©í•˜ì—¬,  ë°°ìš°ì˜ ID, ì´ë¦„, ì„± ì»¬ëŸ¼ì— ì¶”ê°€ë¡œ    'Angels Life' ì˜í™”ì— ë‚˜ì˜¨ ì˜í™” ë°°ìš° ì—¬ë¶€ë¥¼ Y , N ìœ¼ë¡œ ì»¬ëŸ¼ì„ ì¶”ê°€ í‘œê¸°í•´ì£¼ì„¸ìš”.  í•´ë‹¹ ì»¬ëŸ¼ì€ angelslife_flagë¡œ ë§Œë“¤ì–´ì£¼ì„¸ìš”.
 SELECT * ,
 	(CASE WHEN a.actor_id IN 
 		(SELECT actor_id
@@ -130,8 +130,8 @@ SELECT * ,
 	END) AS "angelslife_flag"
 FROM actor a 
 
---¹®Á¦14¹ø) ´ë¿©ÀÏÀÚ°¡ 2005-06-01~ 14ÀÏ¿¡ ÇØ´çÇÏ´Â ÁÖ¹® Áß¿¡¼­ , Á÷¿øÀÇ ÀÌ¸§(ÀÌ¸§ ¼º) = 'Mike Hillyer' ÀÌ°Å³ª  °í°´ÀÇ ÀÌ¸§ÀÌ (ÀÌ¸§ ¼º) ='Gloria Cook'  ¿¡ ÇØ´ç ÇÏ´Â rental ÀÇ ¸ğµç Á¤º¸¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- Ãß°¡·Î Á÷¿øÀÌ¸§°ú, °í°´ÀÌ¸§¿¡ ´ëÇØ¼­µµ fullname À¸·Î ±¸¼ºÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ14ë²ˆ) ëŒ€ì—¬ì¼ìê°€ 2005-06-01~ 14ì¼ì— í•´ë‹¹í•˜ëŠ” ì£¼ë¬¸ ì¤‘ì—ì„œ , ì§ì›ì˜ ì´ë¦„(ì´ë¦„ ì„±) = 'Mike Hillyer' ì´ê±°ë‚˜  ê³ ê°ì˜ ì´ë¦„ì´ (ì´ë¦„ ì„±) ='Gloria Cook'  ì— í•´ë‹¹ í•˜ëŠ” rental ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- ì¶”ê°€ë¡œ ì§ì›ì´ë¦„ê³¼, ê³ ê°ì´ë¦„ì— ëŒ€í•´ì„œë„ fullname ìœ¼ë¡œ êµ¬ì„±í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT r.*, concat(s.first_name, ' ', s.last_name) AS staff_name, concat(c.first_name, ' ', c.last_name) AS customer_name
 FROM rental r 
 LEFT OUTER JOIN customer c ON c.customer_id = r.customer_id 
@@ -140,8 +140,8 @@ WHERE r.rental_date::date BETWEEN date('2005-06-01') AND date('2005-06-14')
 AND concat(s.first_name, ' ', s.last_name) = 'Mike Hillyer'
 OR concat(c.first_name, ' ', c.last_name) = 'Gloria Cook'
 
---¹®Á¦15¹ø) ´ë¿©ÀÏÀÚ°¡ 2005-06-01~ 14ÀÏ¿¡ ÇØ´çÇÏ´Â ÁÖ¹® Áß¿¡¼­ , Á÷¿øÀÇ ÀÌ¸§(ÀÌ¸§ ¼º) = 'Mike Hillyer' ¿¡ ÇØ´ç ÇÏ´Â Á÷¿ø¿¡°Ô  ±¸¸ÅÇÏÁö ¾ÊÀº  rental ÀÇ ¸ğµç Á¤º¸¸¦ ¾Ë·ÁÁÖ¼¼¿ä.
---- Ãß°¡·Î Á÷¿øÀÌ¸§°ú, °í°´ÀÌ¸§¿¡ ´ëÇØ¼­µµ fullname À¸·Î ±¸¼ºÇØ¼­ ¾Ë·ÁÁÖ¼¼¿ä.
+--ë¬¸ì œ15ë²ˆ) ëŒ€ì—¬ì¼ìê°€ 2005-06-01~ 14ì¼ì— í•´ë‹¹í•˜ëŠ” ì£¼ë¬¸ ì¤‘ì—ì„œ , ì§ì›ì˜ ì´ë¦„(ì´ë¦„ ì„±) = 'Mike Hillyer' ì— í•´ë‹¹ í•˜ëŠ” ì§ì›ì—ê²Œ  êµ¬ë§¤í•˜ì§€ ì•Šì€  rental ì˜ ëª¨ë“  ì •ë³´ë¥¼ ì•Œë ¤ì£¼ì„¸ìš”.
+--- ì¶”ê°€ë¡œ ì§ì›ì´ë¦„ê³¼, ê³ ê°ì´ë¦„ì— ëŒ€í•´ì„œë„ fullname ìœ¼ë¡œ êµ¬ì„±í•´ì„œ ì•Œë ¤ì£¼ì„¸ìš”.
 SELECT r.*, concat(s.first_name, ' ', s.last_name) AS staff_name, concat(c.first_name, ' ', c.last_name) AS customer_name
 FROM rental r 
 LEFT OUTER JOIN customer c ON c.customer_id = r.customer_id 
