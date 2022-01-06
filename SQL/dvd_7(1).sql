@@ -1,4 +1,4 @@
---¹®Á¦1¹ø) ´ë¿©Á¡(store)º° ¿µÈ­ Àç°í(inventory) ¼ö·®°ú ÀüÃ¼ ¿µÈ­ Àç°í ¼ö·®Àº? (grouping set)
+--ë¬¸ì œ1ë²ˆ) ëŒ€ì—¬ì (store)ë³„ ì˜í™” ìž¬ê³ (inventory) ìˆ˜ëŸ‰ê³¼ ì „ì²´ ì˜í™” ìž¬ê³  ìˆ˜ëŸ‰ì€? (grouping set)
 SELECT COALESCE (store_id::TEXT , 'total') as store_id , count(film_id)
 FROM inventory i 
 GROUP BY GROUPING SETs ((store_id),())
@@ -10,13 +10,13 @@ UNION ALL
 SELECT 'total', count(film_id)
 FROM inventory i  
 
---¹®Á¦2¹ø) ´ë¿©Á¡(store)º° ¿µÈ­ Àç°í(inventory) ¼ö·®°ú ÀüÃ¼ ¿µÈ­ Àç°í ¼ö·®Àº? (rollup)
+--ë¬¸ì œ2ë²ˆ) ëŒ€ì—¬ì (store)ë³„ ì˜í™” ìž¬ê³ (inventory) ìˆ˜ëŸ‰ê³¼ ì „ì²´ ì˜í™” ìž¬ê³  ìˆ˜ëŸ‰ì€? (rollup)
 SELECT COALESCE (store_id::TEXT , 'total') as store_id , count(film_id)
 FROM inventory i 
 GROUP BY ROLLUP (store_id)
 
 
---¹®Á¦3¹ø) ±¹°¡(country)º° µµ½Ã(city)º° ¸ÅÃâ¾×, ±¹°¡(country)¸ÅÃâ¾× ¼Ò°è ±×¸®°í ÀüÃ¼ ¸ÅÃâ¾×À» ±¸ÇÏ¼¼¿ä. (grouping set)
+--ë¬¸ì œ3ë²ˆ) êµ­ê°€(country)ë³„ ë„ì‹œ(city)ë³„ ë§¤ì¶œì•¡, êµ­ê°€(country)ë§¤ì¶œì•¡ ì†Œê³„ ê·¸ë¦¬ê³  ì „ì²´ ë§¤ì¶œì•¡ì„ êµ¬í•˜ì„¸ìš”. (grouping set)
 SELECT COALESCE (country::TEXT, '__TOTAL__') AS country, COALESCE (city::TEXT, 'CITY_TOTAL') AS city, sum(amount)
 FROM payment p 
 LEFT JOIN customer c USING (customer_id)
@@ -34,7 +34,7 @@ ORDER BY
 	END, 
 	city
 
---¹®Á¦4¹ø) ±¹°¡(country)º° µµ½Ã(city)º° ¸ÅÃâ¾×, ±¹°¡(country)¸ÅÃâ¾× ¼Ò°è ±×¸®°í ÀüÃ¼ ¸ÅÃâ¾×À» ±¸ÇÏ¼¼¿ä. (rollup)
+--ë¬¸ì œ4ë²ˆ) êµ­ê°€(country)ë³„ ë„ì‹œ(city)ë³„ ë§¤ì¶œì•¡, êµ­ê°€(country)ë§¤ì¶œì•¡ ì†Œê³„ ê·¸ë¦¬ê³  ì „ì²´ ë§¤ì¶œì•¡ì„ êµ¬í•˜ì„¸ìš”. (rollup)
 SELECT COALESCE (country::TEXT, 'COUNTRY_TOTAL') AS country, COALESCE (city::TEXT, 'CITY_TOTAL') AS city, sum(amount)
 FROM payment p 
 LEFT JOIN customer c USING (customer_id)
@@ -52,7 +52,7 @@ ORDER BY
 	END, 
 	city
 
---¹®Á¦5¹ø) ¿µÈ­¹è¿ìº°·Î  Ãâ¿¬ÇÑ ¿µÈ­ count ¼ö ¿Í,   ¸ðµç ¹è¿ìÀÇ ÀüÃ¼ Ãâ¿¬ ¿µÈ­ ¼ö¸¦ ÇÕ»ê ÇØ¼­ ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
+--ë¬¸ì œ5ë²ˆ) ì˜í™”ë°°ìš°ë³„ë¡œ  ì¶œì—°í•œ ì˜í™” count ìˆ˜ ì™€,   ëª¨ë“  ë°°ìš°ì˜ ì „ì²´ ì¶œì—° ì˜í™” ìˆ˜ë¥¼ í•©ì‚° í•´ì„œ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
 
 SELECT COALESCE (actor_id::TEXT, 'TOTAL') AS actor_id, count(film_id)
 FROM film_actor fa 
@@ -75,21 +75,21 @@ FROM (
 	GROUP BY actor_id
 	) AS tmp
 
---¹®Á¦6¹ø) ±¹°¡ (Country)º°, µµ½Ã(City)º°  °í°´ÀÇ ¼ö¿Í ,  ÀüÃ¼ ±¹°¡º° °í°´ÀÇ ¼ö¸¦ ÇÔ²² º¸¿©ÁÖ¼¼¿ä. (grouping sets)
+--ë¬¸ì œ6ë²ˆ) êµ­ê°€ (Country)ë³„, ë„ì‹œ(City)ë³„  ê³ ê°ì˜ ìˆ˜ì™€ ,  ì „ì²´ êµ­ê°€ë³„ ê³ ê°ì˜ ìˆ˜ë¥¼ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”. (grouping sets)
 
 
---¹®Á¦7¹ø) ¿µÈ­¿¡¼­ »ç¿ëÇÑ ¾ð¾î¿Í  ¿µÈ­ °³ºÀ ¿¬µµ ¿¡ ´ëÇÑ ¿µÈ­  °¹¼ö¿Í  , ¿µÈ­ °³ºÀ ¿¬µµ¿¡ ´ëÇÑ ¿µÈ­ °¹¼ö¸¦ ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
+--ë¬¸ì œ7ë²ˆ) ì˜í™”ì—ì„œ ì‚¬ìš©í•œ ì–¸ì–´ì™€  ì˜í™” ê°œë´‰ ì—°ë„ ì— ëŒ€í•œ ì˜í™”  ê°¯ìˆ˜ì™€  , ì˜í™” ê°œë´‰ ì—°ë„ì— ëŒ€í•œ ì˜í™” ê°¯ìˆ˜ë¥¼ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
 
 
---¹®Á¦8¹ø) ¿¬µµº°, ÀÏº° °áÁ¦  ¼ö·®°ú,  ¿¬µµº° °áÁ¦ ¼ö·®À» ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
---- °áÁ¦¼ö·®Àº °áÁ¦ ÀÇ id °¹¼ö ¸¦ ÀÇ¹ÌÇÕ´Ï´Ù.
+--ë¬¸ì œ8ë²ˆ) ì—°ë„ë³„, ì¼ë³„ ê²°ì œ  ìˆ˜ëŸ‰ê³¼,  ì—°ë„ë³„ ê²°ì œ ìˆ˜ëŸ‰ì„ í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
+--- ê²°ì œìˆ˜ëŸ‰ì€ ê²°ì œ ì˜ id ê°¯ìˆ˜ ë¥¼ ì˜ë¯¸í•©ë‹ˆë‹¤.
 
 
---¹®Á¦9¹ø) ÁöÁ¡ º°,  active °í°´ÀÇ ¼ö¿Í ,   active °í°´ ¼ö ¸¦  ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
---ÁöÁ¡°ú, active ¿©ºÎ¿¡ ´ëÇØ¼­´Â customer Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¿© º¸¿©ÁÖ¼¼¿ä.
---- grouping sets ¸¦ ÀÌ¿ëÇØ¼­ Ç®ÀÌÇØÁÖ¼¼¿ä.
+--ë¬¸ì œ9ë²ˆ) ì§€ì  ë³„,  active ê³ ê°ì˜ ìˆ˜ì™€ ,   active ê³ ê° ìˆ˜ ë¥¼  í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
+--ì§€ì ê³¼, active ì—¬ë¶€ì— ëŒ€í•´ì„œëŠ” customer í…Œì´ë¸”ì„ ì´ìš©í•˜ì—¬ ë³´ì—¬ì£¼ì„¸ìš”.
+--- grouping sets ë¥¼ ì´ìš©í•´ì„œ í’€ì´í•´ì£¼ì„¸ìš”.
 
 
---¹®Á¦10¹ø) ÁöÁ¡ º°,  active °í°´ÀÇ ¼ö¿Í ,   active °í°´ ¼ö ¸¦  ÇÔ²² º¸¿©ÁÖ¼¼¿ä.
---ÁöÁ¡°ú, active ¿©ºÎ¿¡ ´ëÇØ¼­´Â customer Å×ÀÌºíÀ» ÀÌ¿ëÇÏ¿© º¸¿©ÁÖ¼¼¿ä.
---- roll upÀ¸·Î Ç®ÀÌÇØº¸¸é¼­, grouping sets °úÀÇ Â÷ÀÌ¸¦ È®ÀÎÇØº¸¼¼¿ä.
+--ë¬¸ì œ10ë²ˆ) ì§€ì  ë³„,  active ê³ ê°ì˜ ìˆ˜ì™€ ,   active ê³ ê° ìˆ˜ ë¥¼  í•¨ê»˜ ë³´ì—¬ì£¼ì„¸ìš”.
+--ì§€ì ê³¼, active ì—¬ë¶€ì— ëŒ€í•´ì„œëŠ” customer í…Œì´ë¸”ì„ ì´ìš©í•˜ì—¬ ë³´ì—¬ì£¼ì„¸ìš”.
+--- roll upìœ¼ë¡œ í’€ì´í•´ë³´ë©´ì„œ, grouping sets ê³¼ì˜ ì°¨ì´ë¥¼ í™•ì¸í•´ë³´ì„¸ìš”.
